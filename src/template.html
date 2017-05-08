@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Pixiv</title>
+</head>
+
+<body>
+  <div class="header">
+    <p>header</p>
+  </div>
+  <div class="main">
+    <p>fixed 定位实现起来简单，在大多数浏览器中也能正常显示，但是 fixed 定位在移动端会有兼容性问题，后面会提到，所以不建议这种实现方式。 absolute 定位和 fixed 定位类似，只要把 header 的 footer 的
+      position 改为 absolute 就可以了。 细心的小伙伴可能发现了，这里的 main 没有设置 overflow ，因为这里有一个坑，不管是absolute 定位还是 fixed 定位都一样，为了方便描述，以下只说 fixed
+      定位(在 absolute 定位也一样成立)。在PC端没有问题，但是在移动端，如果 main 设置了 overflow 为 true，header 会被 main 遮住，对，没有错，虽然是 fixed 定位，但是在移动端，如果 fixed
+      定位节点后面紧接跟着的兄弟节点是可滚动的(也就是设置了 overflow 为 true )，那么 fixed 节点会被其后的兄弟节点遮住。 这个问题解决方式有很多，既然是 fixed 定位后面紧接着可滚动的兄弟节点才会有这个坑，只要让他的条件有一个不成立就好了，有以下解决方案：
+      让 fixed 定位节点后面不紧接着可滚动的节点fixed 定位实现起来简单，在大多数浏览器中也能正常显示，但是 fixed 定位在移动端会有兼容性问题，后面会提到，所以不建议这种实现方式。 absolute 定位和 fixed 定位类似，只要把 header 的 footer 的
+      position 改为 absolute 就可以了。 细心的小伙伴可能发现了，这里的 main 没有设置 overflow ，因为这里有一个坑，不管是absolute 定位还是 fixed 定位都一样，为了方便描述，以下只说 fixed
+      定位(在 absolute 定位也一样成立)。在PC端没有问题，但是在移动端，如果 main 设置了 overflow 为 true，header 会被 main 遮住，对，没有错，虽然是 fixed 定位，但是在移动端，如果 fixed
+      定位节点后面紧接跟着的兄弟节点是可滚动的(也就是设置了 overflow 为 true )，那么 fixed 节点会被其后的兄弟节点遮住。 这个问题解决方式有很多，既然是 fixed 定位后面紧接着可滚动的兄弟节点才会有这个坑，只要让他的条件有一个不成立就好了，有以下解决方案：
+      让 fixed 定位节点后面不紧接着可滚动的节点fixed 定位实现起来简单，在大多数浏览器中也能正常显示，但是 fixed 定位在移动端会有兼容性问题，后面会提到，所以不建议这种实现方式。 absolute 定位和 fixed 定位类似，只要把 header 的 footer 的
+      position 改为 absolute 就可以了。 细心的小伙伴可能发现了，这里的 main 没有设置 overflow ，因为这里有一个坑，不管是absolute 定位还是 fixed 定位都一样，为了方便描述，以下只说 fixed
+      定位(在 absolute 定位也一样成立)。在PC端没有问题，但是在移动端，如果 main 设置了 overflow 为 true，header 会被 main 遮住，对，没有错，虽然是 fixed 定位，但是在移动端，如果 fixed
+      定位节点后面紧接跟着的兄弟节点是可滚动的(也就是设置了 overflow 为 true )，那么 fixed 节点会被其后的兄弟节点遮住。 这个问题解决方式有很多，既然是 fixed 定位后面紧接着可滚动的兄弟节点才会有这个坑，只要让他的条件有一个不成立就好了，有以下解决方案：
+      让 fixed 定位节点后面不紧接着可滚动的节点fixed 定位实现起来简单，在大多数浏览器中也能正常显示，但是 fixed 定位在移动端会有兼容性问题，后面会提到，所以不建议这种实现方式。 absolute 定位和 fixed 定位类似，只要把 header 的 footer 的
+      position 改为 absolute 就可以了。 细心的小伙伴可能发现了，这里的 main 没有设置 overflow ，因为这里有一个坑，不管是absolute 定位还是 fixed 定位都一样，为了方便描述，以下只说 fixed
+      定位(在 absolute 定位也一样成立)。在PC端没有问题，但是在移动端，如果 main 设置了 overflow 为 true，header 会被 main 遮住，对，没有错，虽然是 fixed 定位，但是在移动端，如果 fixed
+      定位节点后面紧接跟着的兄弟节点是可滚动的(也就是设置了 overflow 为 true )，那么 fixed 节点会被其后的兄弟节点遮住。 这个问题解决方式有很多，既然是 fixed 定位后面紧接着可滚动的兄弟节点才会有这个坑，只要让他的条件有一个不成立就好了，有以下解决方案：
+      让 fixed 定位节点后面不紧接着可滚动的节点</p>
+  </div>
+  <div class="footer">
+    <p>footer</p>
+  </div>
+</body>
+
+</html>

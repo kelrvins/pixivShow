@@ -1,0 +1,31 @@
+body {
+  overflow: auto;
+}
+
+.header p,
+.footer p,
+.main p{
+  text-align: center;
+}
+.header,
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 44px;
+}
+
+.header {
+  background: #2e8ffe;
+  top: 0;
+}
+
+.footer {
+  bottom: 0;
+}
+
+.main {
+  background: #fff;
+  height: 100%;
+  padding: 44px 0;
+}
