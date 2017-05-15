@@ -3,11 +3,14 @@ import {
 } from './wtools';
 import pixs from '../../static/picture.json'
 
-let deviceWidth = document.body.offsetWidth
+let deviceWidth = document.body.offsetWidth,
+    pics = w.$("#allPics").getElementsByTagName("img")
 
 class pixShow {
     constructor() {
-        this.pictureShow();
+        this.pictureShow()
+        this.loadImg(pics)
+        this.dateChange()
     }
     pictureShow() {
         w.removaAllChildNodes(w.$("#allPics"))
@@ -23,6 +26,7 @@ class pixShow {
             let p = keys[k]
             let dateShow = document.createElement("div")
             dateShow.className = "date-show"
+            dateShow.id = p
             dateShow.innerHTML = p.substr(0, 4) + "/" + p.substr(4, 2) + "/" + p.substr(6)
             oFrag.appendChild(dateShow)
             for (let i in pixs[p]) {
@@ -53,12 +57,13 @@ class pixShow {
     }
     loadImg(imgs) {
         for (let i = 0, len = imgs.length; i < len; i++) {
-            if ((imgs[i].getBoundingClientRect().top - 200) < document.documentElement.clientHeight) {
+            if ((imgs[i].getBoundingClientRect().top - 200) < document.documentElement.clientHeight && !imgs[i].isload) {
                 (function (i) {
+                    imgs[i].isload = true
                     setTimeout(function () {
                         if (imgs[i].dataset) {
                             pix.aftLoadImg(imgs[i], imgs[i].dataset.src);
-                        } else { 
+                        } else {
                             pix.aftLoadImg(imgs[i], imgs[i].getAttribute("data-src"));
                         }
                     }, 500)
@@ -74,15 +79,23 @@ class pixShow {
         }
         oImg.src = url;
     }
+    dateChange() {
+        let dateTitle = w.$$(".date-show")
+        for (let i = 0; i < dateTitle.length; i++) {
+            if (dateTitle[i].getBoundingClientRect().top < 100 && dateTitle[i].getBoundingClientRect().top > 0) {
+                // console.log(dateTitle[i].textContent)
+                w.$("#headerDateTime").innerHTML = dateTitle[i].textContent.substr(-2)
+            }
+        }
+    }
 }
 
 const pix = new pixShow()
 
-let pics = w.$("#allPics").getElementsByTagName("img")
-pix.loadImg(pics)
 
 window.onscroll = function () {
     pix.loadImg(pics)
+    pix.dateChange()
 }
 
 window.addEventListener("orientationchange", function () {
