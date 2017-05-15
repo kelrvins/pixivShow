@@ -93,8 +93,9 @@ export const w = {
      * @param {Element} elementId
      */
     removaAllChildNodes(elementId) {
-        while (elementId.hasChildNodes()) {
-            elementId.removeChild(elementId.lastChild)
+        var childs = elementId.childNodes;
+        for (var i = childs.length - 1; i >= 0; i--) {
+            elementId.removeChild(childs.item(i));
         }
     },
 
