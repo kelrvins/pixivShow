@@ -1,18 +1,20 @@
 import {
     w
 } from './wtools';
-import pixs from '../../static/picture.json'
+// import pixs from '../../static/picture.json'
 
 let deviceWidth = document.body.offsetWidth,
-    pics = w.$("#allPics").getElementsByTagName("img")
+    pics = w.$("#allPics").getElementsByTagName("img"),
+    pixs,//json 文件
+    pix//class 对象
 
 class pixShow {
     constructor() {
-        this.pictureShow()
+        this.pictureRender()
         this.loadImg(pics)
         this.dateChange()
     }
-    pictureShow() {
+    pictureRender() {//渲染图片
         w.removaAllChildNodes(w.$("#allPics"))
         let oFrag = document.createDocumentFragment()
         let keys = []
@@ -43,8 +45,7 @@ class pixShow {
                 pLiOpera.className = "pix-opera"
                 pLiContent.className = "pix-content"
                 pLiContent.innerHTML = pixs[p][i].pixDes
-                pLiLike.className = "pix-like"
-                pLiLike.innerHTML = "like"
+                pLiLike.className = "pix-like iconfont icon-xihuan"
                 pLiLike.style.color = pixs[p][i].pixIslike === true ? "#f00" : "#000"
                 pLiOpera.appendChild(pLiContent)
                 pLiOpera.appendChild(pLiLike)
@@ -90,15 +91,35 @@ class pixShow {
     }
 }
 
-const pix = new pixShow()
+function loadJson() {
+    let xhr;
+    if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest();
+    } else {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+           pixs= JSON.parse(xhr.responseText)
+        //    console.log(pixs)
+           pix = new pixShow()
+        }
+    }
+    xhr.open("GET", "https://www.easy-mock.com/mock/591a6ae69aba4141cf2322e8/picture/list", true);
+    xhr.send();
+}
 
+(function () {
+    loadJson()
+}())
 
 window.onscroll = function () {
     pix.loadImg(pics)
     pix.dateChange()
+
 }
 
-window.addEventListener("orientationchange", function () {
+window.addEventListener("resize", function () {
     // console.log("orientationchange")
     let getAllPic = w.$("#allPics").getElementsByTagName("img")
     for (let i = 0; i < getAllPic.length; i++) {
