@@ -101,7 +101,6 @@ function loadJson() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
            pixs= JSON.parse(xhr.responseText)
-        //    console.log(pixs)
            pix = new pixShow()
         }
     }
