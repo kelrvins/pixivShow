@@ -74,6 +74,12 @@ nav {
     margin: 0 0 0 1rem;
 }
 
+.i-show-style{
+    line-height: 3rem;
+    font-size: 2rem;
+    color: #1d87fc;
+}
+
 .i-like {
     display: inline-block;
     margin: 0;

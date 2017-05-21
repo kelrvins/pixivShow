@@ -7,8 +7,10 @@ let deviceWidth = document.body.offsetWidth,
     pics = w.$("#allPics").getElementsByTagName("img"),
     pixs, //json 文件
     pix, //class 对象
-    showLike = false,
-    localLikeStr
+    showLike = false, //
+    localLikeStr, //localstorage 
+    waterfall = true //t:waterfall  f:paging  是否为瀑布流
+
 
 class pixShow {
     constructor() {
@@ -36,12 +38,9 @@ class pixShow {
                 oFrag.appendChild(dateShow)
             }
             for (let i in pixs[p]) {
-                // console.log(pixs[p][i].pixId)
                 if (showLike && localLikeStr.indexOf(pixs[p][i].pixId) < 0) {
-                    // console.log("is"+pixs[p][i].pixId)
                     break
                 }
-                // console.log(pixs[p][i].pixId)
                 let pLi = document.createElement("div"),
                     pLiImg = document.createElement("img"),
                     pLiOpera = document.createElement("div"),
@@ -127,12 +126,11 @@ const loadJson = () => {
     if (window.localStorage) {
         if (localStorage.like) {
             localLikeStr = localStorage.like
-            console.log(localLikeStr)
         } else {
             console.log("no local like")
         }
     } else {
-        alert("no localstorage")
+        alert("no  localstorage")
     }
     loadJson()
 }())
@@ -203,3 +201,15 @@ window.addEventListener("resize", () => {
     }
     deviceWidth = document.body.offsetWidth
 });
+
+
+w.addEvent(w.$("#showStyleChange"), "click", function () {
+    alert("分页还没做。。")
+    if (waterfall) {
+        waterfall = false
+        w.replaceClass(w.$("#showStyleChange"), "icon-pubu", "icon-ccgl-dingdanchaibing-3")
+    } else {
+        waterfall = true
+        w.replaceClass(w.$("#showStyleChange"), "icon-ccgl-dingdanchaibing-3", "icon-pubu")
+    }
+})
