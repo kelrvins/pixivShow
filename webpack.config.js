@@ -34,7 +34,31 @@ const config = {
                 query: {
                     name: 'static/img/[name]-[hash:8].[ext]'
                 }
-            }
+            },{
+      test: /\.(woff|woff2)\??.*$/,
+      loader: 'file-loader',
+      query:{
+        name:'/static/fonts/[name]-[hash:8].[ext]&minetype=application/font-woff'
+      }
+    }, {
+      test: /\.ttf\??.*$/,
+      loader: 'file-loader',
+      query:{
+        name:'/static/fonts/[name]-[hash:8].[ext]&minetype=application/octet-stream'
+      }
+    }, {
+      test: /\.eot\??.*$/,
+      loader: 'file-loader',
+      query:{
+        name:'/static/fonts/[name]-[hash:8].[ext]'
+      }
+    }, {
+      test: /\.svg\??.*$/,
+      loader: 'file-loader',
+      query:{
+        name:'/static/fonts/[name]-[hash:8].[ext]&minetype=image/svg+xm'
+      }
+    }
         ]
     },
     plugins: [

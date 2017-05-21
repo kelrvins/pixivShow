@@ -119,6 +119,9 @@ nav {
     justify-content: space-between;
 }
 
+.like-F00{
+    color: #F00;
+}
 .pix-opera p {
     display: inline-block;
 }
@@ -133,4 +136,19 @@ nav {
     font-size: 2rem;
     margin: 0 1rem 0 0;
     line-height: 3rem;
+}
+
+.footer{
+    background: #1d87fc;
+    padding:2rem 0; 
+}
+.footer p{
+    margin: 0;
+    text-align: center;
+    color: #fff;
+}
+.github-link{
+    color: #fff;
+    text-decoration: none;
+    margin-left: 2rem;
 }
