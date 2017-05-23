@@ -1,95 +1,49 @@
-//引入需要的模块
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webserver=require("webpack-dev-server")
-const path = require('path');
-const config = {
-    entry:'./src/entry.js',
+var htmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+var path = require('path');
+module.exports = {
+    entry: './src/entry.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: '[name].bundle.js'
     },
     module: {
-        rules: [{
+        loaders: [
+            {
                 test: /\.css$/,
-                use: [
-                    "style-loader",
-                    "css-loader",
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: function () {
-                                return [
-                                    require('precss'),
-                                    require('autoprefixer')
-                                ];
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {importLoaders: 1} //这里可以简单理解为，如果css文件中有import 进来的文件也进行处理
+                        }
+                        ,{
+                            loader: 'postcss-loader',
+                            options: {           // 如果没有options这个选项将会报错 No PostCSS Config found
+                                plugins: function(loader){
+                                    [
+                                        // require('postcss-import')({root: loader.resourcePath}),
+                                        require('autoprefixer')() //CSS浏览器兼容
+                                        // require('cssnano')()  //压缩css
+                                    ]
+                                }
                             }
                         }
-                    }
-                ]
-            },
-            {
-                test: /\.(png|jpg|gif)$/,
-                loader: 'file-loader',
-                query: {
-                    name: 'static/img/[name]-[hash:8].[ext]'
-                }
-            },{
-      test: /\.(woff|woff2)\??.*$/,
-      loader: 'file-loader',
-      query:{
-        name:'/static/fonts/[name]-[hash:8].[ext]&minetype=application/font-woff'
-      }
-    }, {
-      test: /\.ttf\??.*$/,
-      loader: 'file-loader',
-      query:{
-        name:'/static/fonts/[name]-[hash:8].[ext]&minetype=application/octet-stream'
-      }
-    }, {
-      test: /\.eot\??.*$/,
-      loader: 'file-loader',
-      query:{
-        name:'/static/fonts/[name]-[hash:8].[ext]'
-      }
-    }, {
-      test: /\.svg\??.*$/,
-      loader: 'file-loader',
-      query:{
-        name:'/static/fonts/[name]-[hash:8].[ext]&minetype=image/svg+xm'
-      }
-    }
+                    ]
+                })
+                    
+            }
         ]
     },
+
     plugins: [
-        new HtmlWebpackPlugin({
-            title: "Music",
+        new htmlWebpackPlugin({
             filename: "../index.html",
             template: "./src/template.html",
-            inject: "body",
-            favicon: "",
-            minify: {
-                caseSensitive: false,
-                collapseBooleanAttributes: true,
-                collapseWhitespace: true
-            },
-            hash: true,
-            cache: true,
-            showErrors: true,
-            chunks: "",
-            chunksSortMode: "auto",
-            excludeChunks: "",
-            xhtml: false
+            inject: 'body'     //将js文件插入body文件内
         }),
-        new webpack.HotModuleReplacementPlugin()
-    ],
-  devServer: {
-        contentBase: "./",
-        historyApiFallback: true,
-        hot: true,
-        open: true,
-        inline: true,
-        port: 8888
-  } 
-}
-module.exports = config;
+        new ExtractTextPlugin('[name].css'),
+    ]
+};
