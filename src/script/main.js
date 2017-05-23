@@ -3,6 +3,7 @@ import {
 } from './wtools';
 // import pixs from '../../static/picture.json'
 
+//初始化全局变量
 let deviceWidth = document.body.offsetWidth,
     pics = w.$("#allPics").getElementsByTagName("img"),
     pixs, //json 文件
@@ -18,13 +19,16 @@ class pixShow {
         this.loadImg(pics)
         this.dateChange()
     }
-    pictureRender() { //渲染图片
-        w.removaAllChildNodes(w.$("#allPics"))
+    //渲染图片
+    pictureRender() {
+        w.removaAllChildNodes(w.$("#allPics")) //移除所有子节点
         let oFrag = document.createDocumentFragment()
         let keys = []
+        //解决json被浏览器自动排序的问题
         for (let key in pixs) {
             keys.push(key)
         }
+        //倒序输出
         keys.sort((x, y) => {
             return y - x
         })
@@ -38,6 +42,7 @@ class pixShow {
                 oFrag.appendChild(dateShow)
             }
             for (let i in pixs[p]) {
+                //若是收藏模式切在localstorage中不能查询到此图片id，跳出循环
                 if (showLike && localLikeStr.indexOf(pixs[p][i].pixId) < 0) {
                     break
                 }
@@ -48,6 +53,7 @@ class pixShow {
                     pLiLike = document.createElement("label")
                 pLi.className = "pix-block"
                 pLi.id = pixs[p][i].pixId
+                //图片高度=设备宽度/图片原宽*图片原高
                 pLiImg.height = deviceWidth / pixs[p][i].pixWidth * pixs[p][i].pixHeight
                 pLiImg.dataset.src = pixs[p][i].pixPath
                 pLiOpera.className = "pix-opera"
@@ -56,6 +62,7 @@ class pixShow {
                 pLiLike.className = "pix-like iconfont icon-xihuan"
                 pLiLike.dataset.id = pixs[p][i].pixId
                 pLiLike.id = "like" + pixs[p][i].pixId
+                //如果localstorage可用且存在此数据，改变颜色
                 if (window.localStorage && localStorage.like) {
                     if (localLikeStr.indexOf(pixs[p][i].pixId) >= 0) {
                         pLiLike.classList.add("like-F00")
@@ -72,6 +79,7 @@ class pixShow {
     }
     loadImg(imgs) {
         for (let i = 0, len = imgs.length; i < len; i++) {
+            //若图片顶部距离屏幕底部小于200px
             if ((imgs[i].getBoundingClientRect().top - 200) < document.documentElement.clientHeight && !imgs[i].isload) {
                 ((i) => {
                     imgs[i].isload = true
@@ -97,6 +105,7 @@ class pixShow {
     dateChange() {
         let dateTitle = w.$$(".date-show")
         for (let i = 0; i < dateTitle.length; i++) {
+            //日期标志距离顶部小于100时切换左上角日期标识
             if (dateTitle[i].getBoundingClientRect().top < 100 && dateTitle[i].getBoundingClientRect().top > 0) {
                 // console.log(dateTitle[i].textContent)
                 w.$("#headerDateTime").innerHTML = dateTitle[i].textContent.substr(-2)
@@ -108,9 +117,9 @@ class pixShow {
 const loadJson = () => {
     let xhr;
     if (window.XMLHttpRequest) {
-        xhr = new XMLHttpRequest();
+        xhr = new XMLHttpRequest()
     } else {
-        xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        xhr = new ActiveXObject("Microsoft.XMLHTTP")
     }
     xhr.onreadystatechange = () => {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -118,7 +127,7 @@ const loadJson = () => {
             pix = new pixShow()
         }
     }
-    xhr.open("GET", "https://www.easy-mock.com/mock/591a6ae69aba4141cf2322e8/picture/list", true);
+    xhr.open("GET", "https://www.easy-mock.com/mock/591a6ae69aba4141cf2322e8/picture/list", true)
     xhr.send();
 }
 
@@ -126,19 +135,16 @@ const loadJson = () => {
     if (window.localStorage) {
         if (localStorage.like) {
             localLikeStr = localStorage.like
-        } else {
-            console.log("no local like")
         }
+        loadJson()
     } else {
-        alert("no  localstorage")
+        alert("not support  localstorage")
     }
-    loadJson()
 }())
 
 window.onscroll = () => {
     pix.loadImg(pics)
     pix.dateChange()
-
 }
 
 w.addEvent(w.$("#allPics"), "click", function (e) {
@@ -148,10 +154,10 @@ w.addEvent(w.$("#allPics"), "click", function (e) {
             if (window.localStorage) {
                 if (localStorage.like) {
                     if (localStorage.like.indexOf(e.target.dataset.id) < 0) {
-                        localStorage.setItem("like", localStorage.like += "," + e.target.dataset.id);
+                        localStorage.setItem("like", localStorage.like += "," + e.target.dataset.id)
                     }
                 } else {
-                    localStorage.setItem("like", e.target.dataset.id);
+                    localStorage.setItem("like", e.target.dataset.id)
                 }
             }
         } else {
@@ -160,9 +166,9 @@ w.addEvent(w.$("#allPics"), "click", function (e) {
                 let cancelNo = localStorage.like.indexOf(e.target.dataset.id),
                     localLike = localStorage.like
                 if (cancelNo == 0) {
-                    localStorage.setItem("like", localLike.substr(cancelNo + 11));
+                    localStorage.setItem("like", localLike.substr(cancelNo + 11))
                 } else {
-                    localStorage.setItem("like", localLike.substr(0, cancelNo - 1) + localLike.substr(cancelNo + 10));
+                    localStorage.setItem("like", localLike.substr(0, cancelNo - 1) + localLike.substr(cancelNo + 10))
                 }
             }
         }
@@ -190,9 +196,6 @@ w.addEvent(w.$("#iLike"), "click", function () {
     }
 })
 
-const getLocalStorage = (key) => {
-    return window.localStorage && window.localStorage.getItem(key);
-}
 window.addEventListener("resize", () => {
     // console.log("orientationchange")
     let getAllPic = w.$("#allPics").getElementsByTagName("img")
@@ -200,8 +203,7 @@ window.addEventListener("resize", () => {
         getAllPic[i].height = (getAllPic[i].width / deviceWidth) * getAllPic[i].height
     }
     deviceWidth = document.body.offsetWidth
-});
-
+})
 
 w.addEvent(w.$("#showStyleChange"), "click", function () {
     alert("分页还没做。。")
