@@ -95,6 +95,7 @@ class pixShow {
             }
         }
     }
+    //延迟加载
     aftLoadImg(obj, url) {
         let oImg = new Image();
         oImg.onload = () => {
