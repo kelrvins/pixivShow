@@ -12,6 +12,7 @@
  * w.formatSeconds(value)  把数值格式化为时间
  * w.attr(node, attr, newVal)  获取或设置元素属性 newVal为空是为查询
  */
+
 export const w = {
     /**
      * 获取单个的元素
