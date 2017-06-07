@@ -5,7 +5,7 @@ var path = require('path');
 module.exports = {
     entry: './src/entry.js',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'docs'),
         filename: '[name].bundle.js'
     },
     module: {
@@ -40,7 +40,7 @@ module.exports = {
 
     plugins: [
         new htmlWebpackPlugin({
-            filename: "../index.html",
+            filename: "./index.html",
             template: "./src/template.html",
             inject: 'body'     //将js文件插入body文件内
         }),
