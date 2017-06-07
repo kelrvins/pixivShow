@@ -19,6 +19,7 @@
 
 9.点击收藏夹时便利localstorage中key为like的值，重新遍历json并匹配localstorage然后展示
 
+```
 cnpm install
-
 webpack 
+```
